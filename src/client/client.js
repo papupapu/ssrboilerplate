@@ -4,6 +4,6 @@ import ReactDOM from 'react-dom';
 import Home from './components/Home';
 
 ReactDOM.hydrate(
-	<Home />,
-	document.querySelector('#__SSRRoot')
+  <Home />,
+  document.querySelector('#__SSRRoot')
 );

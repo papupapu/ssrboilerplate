@@ -3,14 +3,14 @@ import { renderToString } from 'react-dom/server';
 import Home from '../client/components/Home';
 
 export default () => {
-	const content = renderToString(<Home />);
-	return `
-		<html>
-			<head></head>
-			<body>
-				<div id="__SSRRoot">${content}</div>
-				<script src="bundle.js"></script>
-			</body>
-		</html>
-	`;
+  const content = renderToString(<Home />);
+  return `
+    <html>
+      <head></head>
+      <body>
+        <div id="__SSRRoot">${content}</div>
+        <script src="bundle.js"></script>
+      </body>
+    </html>
+  `;
 };

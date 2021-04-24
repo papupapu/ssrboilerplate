@@ -6,15 +6,15 @@ const app = express();
 app.use(express.static('public'));
 
 app.get(
-	'/',
-	(req, res) => {
-		res.send(renderer());
-	},
+  '/',
+  (req, res) => {
+    res.send(renderer());
+  },
 );
 
 app.listen(
-	3000,
-	() => {
-		console.log('#### START on port: 3000');
-	},
+  3000,
+  () => {
+    console.log('#### START on port: 3000');
+  },
 );
