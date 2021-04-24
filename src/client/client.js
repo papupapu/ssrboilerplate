@@ -1,4 +1,4 @@
-import 'babel-polyfill'; // allows async methods to run without error
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';

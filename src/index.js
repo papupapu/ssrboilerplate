@@ -1,9 +1,9 @@
-import 'babel-polyfill'; // allows async methods to run without error
+import 'regenerator-runtime/runtime';
 import express from 'express';
 import { matchRoutes } from 'react-router-config';
 
 import Routes from './client/Routes';
-// Import the store here because we need to fetch all data before we attempt to render anything
+// Create the store here because we need to fetch all data before we attempt to render anything
 import createStore from './helpers/createStore';
 import renderer from './helpers/renderer';
 
