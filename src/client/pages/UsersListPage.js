@@ -5,7 +5,15 @@ import { fetchUsers } from '../actions';
 
 class UserList extends Component {
   componentDidMount() {
-    this.props.fetchUsers();
+    const {
+      props: {
+        users,
+        fetchUsers,
+      },
+    } = this;
+    if (!users || !users.length) {
+      fetchUsers();
+    }
   }
 
   renderUsers() {
@@ -24,15 +32,11 @@ class UserList extends Component {
   }
 };
 
-function mapStateToProps(state) {
-  return { users: state.users };
-}
+const mapStateToProps = (state) => ({ users: state.users });
 
-function loadData(store) {
-  // through the store's dispatch method we invoke the fetch action
-  // creating a promised that we return to the server
-  return store.dispatch(fetchUsers());
-}
-export { loadData };
-export default connect(mapStateToProps, { fetchUsers })(UserList);
+const loadData = (store) => store.dispatch(fetchUsers());
 
+export default {
+  component: connect(mapStateToProps, { fetchUsers })(UserList),
+  loadData,
+};
