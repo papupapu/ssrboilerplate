@@ -1,6 +1,9 @@
 const path = require('path');
+const merge = require('webpack-merge');
+const webpackNodeExternals = require('webpack-node-externals');
+const baseConfig = require('./webpack.common');
 
-module.exports = {
+const config = {
 	// Inform webpack that we're building a bundle for nodeJs, rather than for the browser
 	target: 'node',
 
@@ -13,21 +16,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'build')
 	},
 
-	// Tell webpack to run babel on every file it runs through
-	module: {
-		rules: [
-			{
-				test: /\.js?$/, // run on all .js files
-				loader: 'babel-loader', // which webpack loader to run for transpiling
-				exclude: /node_modules/, // directories we do not want babel to run on
-				options: { // options for babel transpile
-					presets: [
-						'react', // transpile JSX
-						'stage-0', // transpile async code
-						['env', { targets: { browsers: ['last 2 versions'] } }] // transpile in order to meet the requirements of the last 2 versions of every popular browser
-					]
-				} 
-			}
-		]
-	}
+	// Tell webpack to not bundle any file inside node modules as they will be imported at runtime
+	// not necessary, but it dramatically reduces bundle size and start up time
+	externals: [webpackNodeExternals()]
 };
+
+module.exports = merge(baseConfig, config);
