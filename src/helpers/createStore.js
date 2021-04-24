@@ -4,11 +4,11 @@ import thunk from 'redux-thunk';
 import reducers from '../client/reducers';
 
 export default () => {
-	const store = createStore(
-		reducers,
-		{}, // empty state
-		applyMiddleware(thunk), // middleware for async operations
-	);
+  const store = createStore(
+    reducers,
+    {}, // empty state
+    applyMiddleware(thunk), // middleware for async operations
+  );
 
-	return store;
+  return store;
 };

@@ -1,6 +1,8 @@
 import 'babel-polyfill'; // allows async methods to run without error
 import express from 'express';
+import { matchRoutes } from 'react-router-config';
 
+import Routes from './client/Routes';
 // Import the store here because we need to fetch all data before we attempt to render anything
 import createStore from './helpers/createStore';
 import renderer from './helpers/renderer';
@@ -14,9 +16,16 @@ app.get(
   (req, res) => {
     const store = createStore();
 
-    // Fetch logic and then pass it to the renderer
+    // Match the url the user has requested with the Routes configuration
 
-    res.send(renderer(req, store));
+    // promises will be an array of all the promises created by the loadData methods
+    const promises = matchRoutes(Routes, req.path).map(
+      ({ route }) => route.loadData
+        ? route.loadData(store) // if our route has a loaddata method attached to it, we invoke it passing to it the whole store
+        : null,
+    );
+
+    Promise.all(promises).then(() => res.send(renderer(req, store)));
   },
 );
 
